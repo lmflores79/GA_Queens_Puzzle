@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	
+	<bean id="ga" class="com.sye.ga.queens.GenethicAlgorithm">
+		<property name="crossoverExecutor" ref="crossoverExecutor" />
+		<property name="selector" ref="selector" />
+		<property name="mutator" ref="mutator" />
+		<property name="populationSize" value="1000" />
+		<property name="mutationRate" value="0.6" />
+		<property name="crossoverRate" value="0.95" />
+		<property name="elitismCount" value="3" />
+		<property name="maxGenerations" value="10000" />
+	</bean>
+		
+	
+	<bean id="randomGenerator" class="java.util.Random"/>
+		
+    <bean id="crossoverExecutor" class="com.sye.ga.queens.OrderCrossoverImpl">
+        <property name="randomGenerator" ref="randomGenerator" />
+    </bean>	
+    
+    <bean id="selector" class="com.sye.ga.queens.TournamentSelectorImpl">
+        <property name="randomGenerator" ref="randomGenerator" />
+        <property name="tournamentSize" value="10" />
+    </bean>	
+
+    <bean id="mutator" class="com.sye.ga.queens.MutatorImpl">
+        <property name="randomGenerator" ref="randomGenerator" />
+    </bean>	
+
+</beans>
